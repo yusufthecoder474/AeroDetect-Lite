@@ -1,0 +1,7 @@
+{
+  "dataset": "VisDrone2019-DET-val",
+  "source": "https://github.com/ultralytics/assets/releases/download/v0.0.0/VisDrone2019-DET-val.zip",
+  "archive_sha256": "abeea063037e5d20398837deb11084e652402a34ddf4f207bdf541a6f2a35ef9",
+  "selection": "config/subset.json",
+  "checkpoint_source": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n.pt"
+}

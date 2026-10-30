@@ -1,0 +1,32 @@
+{
+  "os": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "cpu": "x86_64",
+  "logical_cpus": 9,
+  "ram_bytes": 10451427328,
+  "packages": {
+    "torch": "2.15.0+cpu",
+    "ultralytics": "8.4.193",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.1",
+    "numpy": "2.3.5",
+    "opencv-python": "5.0.0.93"
+  },
+  "settings": {
+    "mode": "benchmark",
+    "dataset": "../data/VisDrone2019-DET-val",
+    "manifest": "config/subset.json",
+    "backend": "onnx",
+    "weights": "yolov8n.pt",
+    "onnx": "yolov8n.onnx",
+    "size": 640,
+    "threads": 1,
+    "warmup": 5,
+    "repeat": 5,
+    "confidence": 0.25,
+    "iou": 0.45,
+    "output": "outputs"
+  },
+  "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+  "gpu": "None available"
+}

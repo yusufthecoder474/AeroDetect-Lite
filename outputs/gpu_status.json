@@ -1,0 +1,8 @@
+{
+  "cuda_available": false,
+  "torch_cuda": null,
+  "nvidia_smi": null,
+  "tensorrt_installed": false,
+  "status": "NOT EXECUTED",
+  "reason": "CPU pipeline only; no compatible GPU verified"
+}

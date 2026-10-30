@@ -1,0 +1,10 @@
+{
+  "input_size": 640,
+  "batch_size": 1,
+  "threads": 1,
+  "confidence": 0.25,
+  "nms_iou": 0.45,
+  "warmup": 5,
+  "repetitions": 5,
+  "note": "Reference settings; CLI flags control execution."
+}
