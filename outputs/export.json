@@ -1,7 +1,7 @@
 {
   "checkpoint": "yolov8n.pt",
   "sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
-  "onnx_sha256": "4fdbe54d1006678e903ce2c8826d94e93dc255407d731ee3dcb4cfc9cec0bb7c",
+  "onnx_sha256": "0c7483054fb3773588cc2d314dfde89e16762fcd6f62fd94f1b4823b2339410c",
   "license": "AGPL-3.0 / Ultralytics enterprise terms",
   "classes": {
     "0": "person",

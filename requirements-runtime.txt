@@ -1,0 +1,7 @@
+# CPU-only runtime; no PyTorch, Ultralytics or colcon required.
+numpy==1.26.4
+opencv-python-headless==4.11.0.86
+onnxruntime==1.31.1
+onnx==1.23.2
+pytest==9.2.0
+psutil==7.2.2

@@ -5,6 +5,31 @@ A small, reproducible Python project for exploring how a pretrained object detec
 
 Drone photographs often contain tiny vehicles, crowded streets, shadows and objects at very different scales. This project helps students and computer-vision developers inspect those challenges and measure deployment performance without needing a drone or GPU. It is an offline image-processing prototype, not a flight or surveillance platform.
 
+## ROS 2 integration update · 31 October 2026
+
+The existing detection pipeline now has an optional **AeroFusion-ROS2** integration. It publishes detections and persistent IoU tracking IDs through ROS topics. The updated ROS package is supplied alongside this project; its current upstream repository was not accessible during this upgrade.
+
+- **32 AeroDetect tests passed** in the pinned runtime environment (the original 30 retained).
+- `scripts/prepare_assets.py` obtains and hash-checks the original fixed VisDrone subset and versioned checkpoint.
+- `scripts/benchmark_onnx.py` measures CPU inference without importing PyTorch. `requirements-runtime.txt` isolates the smaller runtime from the exporter.
+- Fresh executed measurements are in `outputs/integration-20261031/`; historical root `RESULTS.csv` and the earlier benchmark remain intact.
+- PyTorch/ONNX consistency checks now exit nonzero when a discrepancy is found.
+
+The adapter, original-image inference and CPU timings were verified here. **ROS topic transport and colcon execution remain NOT EXECUTED** on this host; the sibling `aerofusion_ros2/scripts/verify_all.sh` performs those checks in one command on the user's Jazzy WSL2 installation. See [INTEGRATION_VERIFICATION.md](INTEGRATION_VERIFICATION.md).
+
+For just the CPU runtime:
+
+```bash
+python3 -m venv .venv-runtime
+source .venv-runtime/bin/activate
+python -m pip install -r requirements-runtime.txt
+python scripts/prepare_assets.py
+# Export once using the full exporter environment, then:
+python scripts/benchmark_onnx.py --dataset data/VisDrone2019-DET-val --output outputs/current
+```
+
+Model-call mean was **100.92 ms** (median 99.79; p95 111.95), and end-to-end mean was **108.82 ms** (median 107.01; p95 120.66), for 50 measured samples per scope with no image-processing failures. These are CPU results from this build environment, not WSL2 or drone hardware results. No speedup is calculated against measurements from a different run/environment.
+
 ## What works
 
 - Loads JPEG/PNG images with missing-file, signature and file-size validation.
@@ -105,7 +130,7 @@ One CPU thread per backend, OpenCV one thread, FP32, batch one, fixed 640×640 i
 `outputs/timings.csv` contains raw observations; `outputs/RESULTS.csv` and root `RESULTS.csv` contain aggregate statistics. Throughput is 1000 divided by mean milliseconds, not an independent concurrency test. p95 uses NumPy's linear percentile. Failures are counted and written to `outputs/failures.json`; invalid manifests fail early.
 
 
-## Executed results
+## Historical executed results · 30 October 2026
 
 Linux / AMD EPYC 9V74 virtual CPU, 9 logical CPUs available, approximately 9.7 GiB RAM; Python 3.12.14. Both inference backends used one CPU thread. Exact package versions and runtime settings are in `outputs/environment.json`.
 
@@ -151,7 +176,3 @@ References: [YOLOv8](https://docs.ultralytics.com/models/yolov8/), [official exp
 ## Limits
 
 COCO-to-aerial distribution shift, missed small objects, crowd suppression and lighting variation remain. These are ten images, not a representative accuracy study. No training, live video, tracking, ROS2, drone hardware, production deployment or real-time guarantee is included. Benchmark results depend on the CPU, library versions, OS and workload.
-
-## GitHub and CI
-
-For Windows setup, GitHub upload and the scope of automatic CI checks, see [GITHUB_SETUP.md](GITHUB_SETUP.md). The workflow at `.github/workflows/ci.yml` is included but its first run on GitHub has **not** yet been observed.

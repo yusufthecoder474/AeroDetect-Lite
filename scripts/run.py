@@ -54,7 +54,10 @@ def main():
                 if max(overlaps)>=.99 and abs(box[4]-det2[j,4])<=.001:
                     remaining.remove(j); matches.append(float(max(overlaps)))
             records.append({'filename':path.name,'raw_max_abs_error':float(np.max(np.abs(raw1-raw2))),'raw_allclose':bool(np.allclose(raw1,raw2,atol=.01,rtol=.001)),'torch_count':len(det1),'onnx_count':len(det2),'matched':len(matches),'passed':len(matches)==len(det1)==len(det2)})
-        (out/'consistency.json').write_text(json.dumps(records,indent=2)); print(json.dumps(records,indent=2)); return
+        (out/'consistency.json').write_text(json.dumps(records,indent=2)); print(json.dumps(records,indent=2))
+        if not all(r['passed'] and r['raw_allclose'] for r in records):
+            raise SystemExit('Backend consistency check FAILED; see consistency.json')
+        return
     rows=[]; raw=[]; failures=[]
     for name,backend in backends.items():
         tensor,_=preprocess(load_image(paths[0]),a.size)

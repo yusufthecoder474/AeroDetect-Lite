@@ -5,5 +5,6 @@ __pycache__/
 *.onnx
 *.engine
 data/
-*.pyc
-ci-pytest.log
+
+.venv*/
+*.egg-info/

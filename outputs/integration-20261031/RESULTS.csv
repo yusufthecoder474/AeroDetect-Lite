@@ -1,0 +1,3 @@
+backend,scope,mean_ms,median_ms,p95_ms,images_per_second,samples,images,repeat,warmup,threads,size,batch,model_bytes,failures
+onnx_cpu,model_call,100.91620630000001,99.7948395,111.9486627,9.90921118286231,50,10,5,5,1,640,1,12824166,0
+onnx_cpu,end_to_end,108.82202814,107.014854,120.6593307,9.189315960124322,50,10,5,5,1,640,1,12824166,0
